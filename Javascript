@@ -1,0 +1,82 @@
+let palabra_Objetivo = ""
+const maxIntentos = 6;
+let cantIntentos = 0
+
+const tablero = document.getElementById("Tablero")
+const input_adivinar = document.getElementById("input_adivinar")
+const boton_adivinar = document.getElementById("button_adivinar")
+const mensaje= document.getElementById("mensaje")
+
+async function obtenerPalabra() {
+    try {
+        const respuesta = await fetch("https://clientes.api.greenborn.com.ar/public-random-word?c=1&l=5")
+        //console.log(respuesta) //esta funcion obtiene palabras de forma aleatoria de la pagina generadora de palabras
+        const dato = await respuesta.json()
+        palabra_Objetivo = dato[0].toUpperCase()
+        console.log(palabra_Objetivo)
+        crearTablero()
+    } catch (error) {
+        mensaje.textContent= "Error"
+    }     
+}
+function crearTablero() {
+for(let i=0; i<maxIntentos; i++)
+{
+    for(let j=0; j<palabra_Objetivo.length; j++) {
+        const letraDiv = document.createElement('div');
+                letraDiv.classList.add('letraCaja');
+                tablero.appendChild(letraDiv);
+    }
+} 
+}
+
+function compararPalabras(palabraIngresada)
+{
+const letras = tablero.querySelectorAll('.letraCaja')
+const compensarfilaactual = cantIntentos*palabra_Objetivo.length
+for (let i=0; i<palabra_Objetivo.length; i++)
+{
+    const letraDiv = letras[compensarfilaactual+i]
+    const letra = palabraIngresada[i].toUpperCase()
+    if (letra ===palabra_Objetivo[i])
+    {
+       letraDiv.classList.add('correcto') //la letra es correcta y esta en el lugar correcto
+    }
+    else if (palabra_Objetivo.includes(letra)) //letra es correcta, pero esta en la posicion incorrecta
+        {
+        letraDiv.classList.add('presente')
+    } else                                   //letra esta ausente
+    {
+        letraDiv.classList.add('ausente')
+    }
+    letraDiv.textContent = letra
+}
+
+}
+
+
+//console.log(compararPalabras())
+boton_adivinar.addEventListener('click', ()=>{
+    const palabraIngresada = input_adivinar.value.trim().toUpperCase();
+    //console.log(palabraIngresada) 
+    if (palabraIngresada.length !== palabra_Objetivo.length)
+    {
+         mensaje.textContent = 'La palabra debe tener 5 letras'
+        return 
+    }
+    if (cantIntentos<maxIntentos) {
+            compararPalabras(palabraIngresada);
+            cantIntentos++; 
+            if (palabraIngresada === palabra_Objetivo)
+            {
+                mensaje.textContent = 'Felicidades, has adivinado la palabra correcta!';
+                boton_adivinar.disabled = true;
+            }
+        else if(cantIntentos === maxIntentos)
+        {
+            mensaje.textContent =  `Has perdido, la palabra era ${palabra_Objetivo}`;
+            boton_adivinar.disabled = true;
+        }
+    }
+})
+obtenerPalabra()
