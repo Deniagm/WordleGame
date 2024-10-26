@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: hwb(0 100% 0%);
+}
+.title {
+    color: #5b545a;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.container {
+    text-align: center;
+}
+
+#Tablero {
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    grid-gap: 5px;
+    margin: 20px 0;
+    padding: 20px 40px;
+    border: 1px solid #37EAFE;
+    box-shadow: 0 0 10px #87cdfb80;
+    border-radius: 10px;
+}
+
+.letraCaja {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #b239a8;
+    box-shadow: 0 0 5px #fba7f580;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-radius: 5px;
+}
+
+.correcto {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.presente {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.ausente {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+#input_adivinar {
+    padding: 10px;
+    font-size: medium;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+#input_adivinar:focus,  #input_adivinar:hover, #input_adivinar:active {
+    outline: none;
+    border: 1px solid #37EAFE;
+    box-shadow: 0 0 5px #87cdfb80;
+}
+
+#button_adivinar {
+    padding: 10px 20px;
+    border: 1px solid #7ed957;
+    box-shadow: 0 0 5px #7ed95780;
+    color: rgb(230, 128, 50);
+    font-weight: bold;
+    font-size: medium;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+#mensaje {
+    color: #b5b4b4;
+    font-size: 15px;
+    margin-top: 20px;
+}
